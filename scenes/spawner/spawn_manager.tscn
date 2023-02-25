@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/spawner/scripts/spawn_manager.gd" type="Script" id=1]
+
+[node name="SpawnManager" type="Node"]
+script = ExtResource( 1 )
+
+[node name="WaitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="WaitTimer" to="." method="_on_WaitTimer_timeout"]

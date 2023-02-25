@@ -1,0 +1,199 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/ui/fonts/aldo_the_apache/AldotheApache.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/ui/tutorial/scripts/tutorial.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.123546, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 241.13
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 100.0
+angle = 720.0
+angle_random = 1.0
+scale = 15.24
+scale_random = 0.46
+scale_curve = SubResource( 4 )
+
+[node name="Tutorial" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -742.0
+margin_top = -124.0
+margin_right = -120.0
+margin_bottom = 124.0
+
+[node name="W" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -121.0
+margin_right = 121.0
+margin_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+text = "W
+(stick up)"
+align = 1
+valign = 1
+
+[node name="Particles2D" type="Particles2D" parent="Control/W"]
+position = Vector2( 121, 40 )
+emitting = false
+amount = 31
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 2 )
+
+[node name="S" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -128.5
+margin_top = -87.0
+margin_right = 128.5
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+text = "S
+(stick down)"
+align = 1
+valign = 1
+
+[node name="Particles2D2" type="Particles2D" parent="Control/S"]
+position = Vector2( 128.5, 47 )
+emitting = false
+amount = 31
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 2 )
+
+[node name="A" type="Label" parent="Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -43.5
+margin_right = 291.0
+margin_bottom = 43.5
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+text = "A
+(stick left)"
+align = 1
+valign = 1
+
+[node name="Particles2D3" type="Particles2D" parent="Control/A"]
+position = Vector2( 144, 39.5 )
+emitting = false
+amount = 31
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 2 )
+
+[node name="D" type="Label" parent="Control"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -291.0
+margin_top = -43.5
+margin_bottom = 43.5
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+text = "D
+(stick right)"
+align = 1
+valign = 1
+
+[node name="Particles2D4" type="Particles2D" parent="Control/D"]
+position = Vector2( 147, 39.5 )
+emitting = false
+amount = 31
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 2 )
+
+[node name="Control2" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 72.0
+margin_top = -84.0
+margin_right = 400.0
+margin_bottom = 84.0
+
+[node name="Shift" type="Label" parent="Control2"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -43.0
+margin_right = 140.0
+margin_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+text = "SHIFT
+(X)"
+align = 1
+valign = 1
+
+[node name="Particles2D4" type="Particles2D" parent="Control2/Shift"]
+position = Vector2( 72, 39 )
+emitting = false
+amount = 31
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 2 )
+
+[node name="Space" type="Label" parent="Control2"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -140.0
+margin_top = -43.5
+margin_bottom = 43.5
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = SubResource( 1 )
+text = "SPACE
+(A)"
+align = 1
+valign = 1
+
+[node name="Particles2D4" type="Particles2D" parent="Control2/Space"]
+position = Vector2( 68, 39.5 )
+emitting = false
+amount = 31
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.87
+process_material = SubResource( 2 )

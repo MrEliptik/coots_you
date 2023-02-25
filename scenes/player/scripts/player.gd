@@ -35,6 +35,7 @@ onready var health_bar: ProgressBar = $UI/HealthBar
 
 func _ready() -> void:
 	EventBus.connect("heal", self, "on_heal")
+	health_bar.visible = false
 	
 func _process(delta: float) -> void:
 	if attacking or dashing or dead: return
@@ -103,6 +104,10 @@ func set_health(amount: float) -> void:
 	health += amount
 	health = clamp(health, 0, max_health)
 	health_bar.value = health
+	if health >= 100.0:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true
 	if health <= 0:
 		die()
 		

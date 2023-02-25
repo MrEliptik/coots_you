@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/game/scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/spawner/spawn_manager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ui/fonts/aldo_the_apache/AldotheApache.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scenes/ui/tutorial/tutorial.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/game/scripts/wave.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 250
@@ -22,10 +24,12 @@ margin_right = 1248.0
 margin_bottom = 640.0
 grow_horizontal = 2
 grow_vertical = 2
+rect_pivot_offset = Vector2( 332, 104 )
 custom_fonts/font = SubResource( 1 )
 text = "WAVE 1"
 align = 1
 valign = 1
+script = ExtResource( 7 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Walls"]]
 collision_layer = 3
@@ -39,80 +43,302 @@ __meta__ = {
 polygon = PoolVector2Array( 64, 64, 64, 1024, 1856, 1024, 1856, 64, 64, 64, 0, 0, 1920, 0, 1920, 1088, 0, 1080, 0, 8 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 912, 544 )
+position = Vector2( 960, 540 )
+
+[node name="Objects" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="SpawnPoints" type="Node" parent="."]
 
 [node name="Position2D17" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 264, 232 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 1048, 208 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 1448, 568 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 1536, 816 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 944, 696 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D15" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 1144, 824 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D6" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 664, 808 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D7" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 264, 864 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D8" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 432, 400 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D9" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 600, 552 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D10" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 600, 552 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D16" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 240, 648 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D11" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 648, 248 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D12" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 856, 456 )
 rotation = -1.0472
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D13" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 1192, 440 )
 rotation = -1.309
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D14" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 1424, 248 )
 rotation = -1.309
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Position2D18" type="Position2D" parent="SpawnPoints"]
 position = Vector2( 1640, 376 )
 rotation = -1.309
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SpawnPointsObject" type="Node" parent="."]
+
+[node name="Position2D" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 464, 216 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D2" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 216, 416 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D3" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 256, 768 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D4" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 496, 920 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D5" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 512, 696 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D6" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 768, 672 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D7" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 904, 840 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D8" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1224, 936 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D9" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1344, 776 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D10" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1632, 888 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D11" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1688, 632 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D12" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1376, 448 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D13" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1656, 208 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D14" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1253, 184 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D15" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 1120, 328 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D16" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 856, 232 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D17" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 672, 176 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D18" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 184, 176 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D19" type="Position2D" parent="SpawnPointsObject"]
+position = Vector2( 176, 952 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SpawnPointsObjectStart" type="Node" parent="."]
+
+[node name="Position2D6" type="Position2D" parent="SpawnPointsObjectStart"]
+position = Vector2( 712, 640 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D8" type="Position2D" parent="SpawnPointsObjectStart"]
+position = Vector2( 704, 424 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D7" type="Position2D" parent="SpawnPointsObjectStart"]
+position = Vector2( 928, 792 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D9" type="Position2D" parent="SpawnPointsObjectStart"]
+position = Vector2( 1185, 672 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D15" type="Position2D" parent="SpawnPointsObjectStart"]
+position = Vector2( 1120, 328 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Position2D16" type="Position2D" parent="SpawnPointsObjectStart"]
+position = Vector2( 848, 280 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="SpawnManager" parent="." instance=ExtResource( 2 )]
 spawn_points_container_path = NodePath("../SpawnPoints")
 player_path = NodePath("../Player")
+spawn_points_object_container_path = NodePath("../SpawnPointsObject")
+spawn_points_object_start_container_path = NodePath("../SpawnPointsObjectStart")
+objects_container_path = NodePath("../Objects")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="Tutorial" parent="UILayer" instance=ExtResource( 5 )]
+__meta__ = {
+"_edit_lock_": true
+}
+
 [connection signal="started" from="Player" to="." method="_on_Player_started"]
+[connection signal="wave_cleared" from="SpawnManager" to="." method="_on_SpawnManager_wave_cleared"]
+[connection signal="tutorial_done" from="UILayer/Tutorial" to="." method="_on_Tutorial_tutorial_done"]

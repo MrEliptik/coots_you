@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="ludwig_jam_2023"
-run/main_scene="res://scenes/test/test_scene.tscn"
+run/main_scene="res://scenes/game/game.tscn"
 config/icon="res://icon.png"
 
 [autoload]

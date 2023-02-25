@@ -12,6 +12,8 @@ onready var space: Label = $Control2/Space
 var inputs_activated = [false, false, false, false, false, false]
 var tutorial_done: bool = false
 
+var tween: SceneTreeTween
+
 func _ready() -> void:
 	pass
 	
@@ -49,5 +51,13 @@ func _process(delta: float) -> void:
 			space.get_child(0).emitting = true
 
 	if not false in inputs_activated:
+		disappear()
 		tutorial_done = true
 		emit_signal("tutorial_done")
+
+func disappear() -> void:
+	if tween and tween.is_running():
+		tween.kill()
+	tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(self, "queue_free")

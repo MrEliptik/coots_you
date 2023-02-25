@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://audio/music/Ludum Dare 38 - Track 9.wav" type="AudioStream" id=1]
+
+[node name="AudioManager" type="Node2D"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -3.0
+autoplay = true

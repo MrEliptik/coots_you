@@ -101,8 +101,12 @@ func clear_currrent_enemies_list() -> void:
 
 func on_enemies_spawned(enemies: Array) -> void:
 	current_enemies.append_array(enemies)
-	for enemy in enemies:
-		enemy.connect("died", self, "on_enemy_died")
+	var idx_to_remove = []
+	for i in range(enemies.size()):
+		if not is_instance_valid(enemies[i]): 
+			idx_to_remove.append(i)
+			continue
+		enemies[i].connect("died", self, "on_enemy_died")
 		
 func on_enemy_died(which) -> void:
 	current_enemies.erase(which)

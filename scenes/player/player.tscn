@@ -458,6 +458,9 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
+[node name="GhostTimer" type="Timer" parent="."]
+wait_time = 0.01
+
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -570,3 +573,4 @@ high_pass_filter/cutoff_sweep = 0.0
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashTimeout" to="." method="_on_DashTimeout_timeout"]
+[connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]

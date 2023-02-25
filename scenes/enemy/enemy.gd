@@ -6,6 +6,8 @@ export var cheese_particles: PackedScene = preload("res://scenes/enemy/cheese_pa
 export var speed: float = 150.0
 export var accel: float = 10.0
 export var push_object_force: float = 550.0
+export var enraged_speed_boost: float = 2.0
+export var bigger_factor: float = 2.0
 
 var velocity: Vector2 = Vector2.ZERO
 var target = null
@@ -21,6 +23,9 @@ var hitstop_count: int = 0
 var hitstop_object: int = 5
 var hitstop_walls: int = 3
 
+var enraged: bool = false
+var bigger: bool = false
+
 onready var health_bar: ProgressBar = $UI/HealthBar
 onready var sprite: Sprite = $Sprite
 onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -32,6 +37,24 @@ func _ready() -> void:
 	speed += rand_range(-50, 50)
 	health_bar.visible = false
 	$Appear.play()
+	
+	# 5 % chance of being enraged
+	if randf() > 0.95:
+		enraged = true
+		$Sprite/EnragedParticles.emitting = true
+		speed *= enraged_speed_boost
+		
+	if enraged: return
+	# 20 % chance of being bigger
+	if randf() > 0.8:
+		bigger = true
+		sprite.scale *= bigger_factor
+		$CollisionShape2D.shape.set_deferred("radius", $CollisionShape2D.shape.radius * 2)
+		max_health *= bigger_factor
+		health = max_health
+		health_bar.max_value = max_health
+		health_bar.value = health
+		health_bar.rect_position.y *= bigger_factor
 	
 func _process(delta: float) -> void:
 	pass
@@ -81,7 +104,7 @@ func damage(value: float) -> void:
 	health -= value
 	health = clamp(health, 0,max_health)
 	health_bar.value = health
-	if health >= 100.0:
+	if health >= max_health:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
@@ -90,7 +113,6 @@ func damage(value: float) -> void:
 		
 func die() -> void:
 	dead = true
-	print(rad2deg(collision_normal.angle()))
 	spawn_cheese_particles(collision_normal.angle()+deg2rad(180.0))
 	emit_signal("died", self)
 	queue_free()

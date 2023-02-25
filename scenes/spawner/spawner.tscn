@@ -63,7 +63,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "appear"
-length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1

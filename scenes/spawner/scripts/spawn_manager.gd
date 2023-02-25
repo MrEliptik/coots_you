@@ -1,6 +1,6 @@
 extends Node
 
-signal wave_cleared()
+signal wave_cleared(last_enemy)
 
 export var spawner: PackedScene = preload("res://scenes/spawner/spawner.tscn")
 export var object: PackedScene = preload("res://scenes/objects/object.tscn")
@@ -111,7 +111,7 @@ func on_enemies_spawned(enemies: Array) -> void:
 func on_enemy_died(which) -> void:
 	current_enemies.erase(which)
 	if current_enemies.empty():
-		emit_signal("wave_cleared")
+		emit_signal("wave_cleared", which)
 	
 ##### OBJECTS #####
 func get_random_object_position(poses: Array) -> Vector2:

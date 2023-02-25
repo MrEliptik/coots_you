@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal destroyed(which)
 
 export var yarn_explosion: PackedScene = preload("res://scenes/objects/yarn_explosion.tscn")
+export var yarn_bump: PackedScene = preload("res://scenes/objects/yarn_bump.tscn")
 export var friction: float = 2.0
 export var heal_amount_kill_enemy: float = 20.0
 
@@ -48,6 +49,7 @@ func _physics_process(delta: float) -> void:
 
 	animation_player.play("bump")
 	var collider = collision.collider
+	spawn_yarn_bump(collision.position, collision.normal.angle())
 	if collider.is_in_group("Walls"):
 		has_bounced = true
 		velocity = velocity.bounce(collision.normal) * 0.6
@@ -108,7 +110,6 @@ func set_health(amount: float) -> void:
 	
 	# Scale depending on the health
 	var factor = health/max_health
-	print(factor)
 	
 	if health <= 0:
 		explode()
@@ -117,6 +118,12 @@ func spawn_yarn_explosion() -> void:
 	var instance = yarn_explosion.instance()
 	get_tree().get_current_scene().add_child(instance)
 	instance.global_position = global_position
+	
+func spawn_yarn_bump(pos: Vector2, angle: float) -> void:
+	var instance = yarn_bump.instance()
+	get_tree().get_current_scene().add_child(instance)
+	instance.global_position = pos
+	instance.rotation = angle
 
 func explode() -> void:
 	spawn_yarn_explosion()

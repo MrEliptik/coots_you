@@ -32,7 +32,7 @@ func spawn(amount: int) -> void:
 			
 		var pos: Vector2 = positions.pop_back()
 		tween.tween_callback(self, "spawn_enemy", [get_parent(), pos])
-		tween.tween_interval(0.3)
+		tween.tween_interval(rand_range(0.1, 0.4))
 	tween.tween_callback(self, "emit_signal", ["spawned", enemies])
 	tween.tween_interval(0.3)
 	tween.tween_callback(self, "disappear")

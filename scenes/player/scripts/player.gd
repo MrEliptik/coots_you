@@ -3,6 +3,8 @@ extends KinematicBody2D
 signal died()
 signal started()
 
+export var dash_particles: PackedScene = preload("res://scenes/player/dash_particles.tscn")
+export var ghost_scene: PackedScene = preload("res://scenes/player/ghost.tscn")
 export var coots_face_dead: StreamTexture = preload("res://scenes/player/visuals/coots_face_dead.png")
 export var speed: float = 600.0
 export var push_force: float = 1700.0
@@ -10,7 +12,7 @@ export var pushback_force: float = 2500.0
 export var accel: float = 25.0
 export var deccel: float = 10.0
 export var dash_speed: float = 1900.0
-export var dash_duration: float = 0.1
+export var dash_duration: float = 0.15
 export var rot_speed: float = 10.0
 
 const ENEMIES_OBJECTS_BIT: int = 1
@@ -31,10 +33,15 @@ var max_health: float = 100.0
 var health: float = max_health
 var damage_direct_enemy: float = 75.0
 var damage_self: float = 50.0
+var damage_self_contact: float = 20.0
+var ghosting: bool = false
+var last_ghost_time: float = 0.0
+var dash_particles_ref = null
 
 var hitstop_count: int = 0
 var hitstop_object: int = 5
 var hitstop_enemy: int = 8
+var hitstop_dash: int = 4
 
 onready var line_2d: Line2D = $Line2D
 onready var health_bar: ProgressBar = $UI/HealthBar
@@ -46,6 +53,18 @@ func _ready() -> void:
 	health_bar.visible = false
 	
 func _process(delta: float) -> void:
+#	if ghosting and last_ghost_time > 0.005:
+#		last_ghost_time = 0.0
+#		var instance = ghost_scene.instance()
+#		get_tree().get_current_scene().add_child(instance)
+#		instance.global_position = global_position
+#		instance.rotation = sprite.rotation
+#		instance.texture = sprite.texture
+#		instance.scale = sprite.scale
+#		instance.z_index = sprite.z_index - 1
+#	elif ghosting:
+#		last_ghost_time += delta
+	
 	if attacking or dashing or dead: return
 	if hitstop_count > 0:
 		return
@@ -65,13 +84,18 @@ func _process(delta: float) -> void:
 		velocity = push_vec.normalized() * dash_speed
 		animation_player.play("attack")
 	elif Input.is_action_just_pressed("dash") and can_dash:
+		animation_player.play("RESET")
+		ghosting = true
 		dashing = true
 		can_dash = false
 		set_collision_mask_bit(ENEMIES_OBJECTS_BIT, false)
 		set_collision_layer_bit(ENEMIES_OBJECTS_BIT, false)
-		$DashTimer.start()
+		$DashTimer.start(dash_duration)
 		$Dash.play()
+		$GhostTimer.start()
+		spawn_dash_particles()
 		velocity = dir * dash_speed
+		start_hitstop(hitstop_dash)
 		
 	if close_by.empty(): return
 	
@@ -79,7 +103,10 @@ func _process(delta: float) -> void:
 	push_vec = closest_object.global_position - global_position
 	
 	## show push vec with line
-	show_push_vector(push_vec)
+	var color: Color = Color.white
+	if closest_object.is_in_group("Enemies"):
+		color = Color("#f2104c")
+	show_push_vector(push_vec, color)
 	
 func _physics_process(delta: float) -> void:
 	if dead: return
@@ -117,12 +144,15 @@ func _physics_process(delta: float) -> void:
 				start_hitstop(hitstop_object)
 				collider.start_hitstop(hitstop_object)
 #				animation_player.play("bump")
-			
 			return
+		else:
+			if collider.is_in_group("Enemies"):
+				collider.push(-collision.normal * pushback_force, false)
+				damage(damage_self_contact)
 			
 func start_hitstop(frames: int) -> void:
 	hitstop_count = frames
-	animation_player.stop(false)
+	animation_player.call_deferred("stop", false)
 	
 func stop_hitstop() -> void:
 	hitstop_count = 0
@@ -146,7 +176,7 @@ func set_health(amount: float) -> void:
 	health += amount
 	health = clamp(health, 0, max_health)
 	health_bar.value = health
-	if health >= 100.0:
+	if health >= max_health:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
@@ -172,7 +202,8 @@ func compute_closest_close_by() -> void:
 			min_dist = dist
 			closest_object = x
 	
-func show_push_vector(push_vec: Vector2) -> void:
+func show_push_vector(push_vec: Vector2, color: Color) -> void:
+	line_2d.self_modulate = color
 	if line_2d.points.empty():
 		line_2d.add_point(Vector2.ZERO)
 		line_2d.add_point(Vector2.ZERO)
@@ -181,6 +212,17 @@ func show_push_vector(push_vec: Vector2) -> void:
 
 func hide_push_vector() -> void:
 	line_2d.clear_points()
+	
+func spawn_dash_particles() -> void:
+	var instance = dash_particles.instance()
+	add_child(instance)
+	instance.rotation = velocity.angle()
+	instance.emitting = true
+	dash_particles_ref = instance
+	
+func remove_dash_particles() -> void:
+	dash_particles_ref.queue_free()
+	dash_particles_ref = null
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if not body.is_in_group("Pushable"): return
@@ -198,6 +240,19 @@ func _on_DashTimer_timeout() -> void:
 	set_collision_mask_bit(ENEMIES_OBJECTS_BIT, true)
 	set_collision_layer_bit(ENEMIES_OBJECTS_BIT, true)
 	$DashTimeout.start()
+	$GhostTimer.stop()
+	ghosting = false
+#	remove_dash_particles()
 
 func _on_DashTimeout_timeout() -> void:
 	can_dash = true
+
+func _on_GhostTimer_timeout() -> void:
+	pass
+#	var instance = ghost_scene.instance()
+#	get_tree().get_current_scene().add_child(instance)
+#	instance.global_position = global_position
+#	instance.rotation = sprite.rotation
+#	instance.texture = sprite.texture
+#	instance.scale = sprite.scale
+#	instance.z_index = sprite.z_index - 1

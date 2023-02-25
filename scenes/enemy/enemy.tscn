@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://scenes/enemy/visuals/mouse.png" type="Texture" id=2]
 [ext_resource path="res://addons/Trail/trail_2d.gd" type="Script" id=3]
 [ext_resource path="res://scenes/effects/deform.gdshader" type="Shader" id=4]
 [ext_resource path="res://addons/godot_sfxr/SfxrStreamPlayer2D.gd" type="Script" id=5]
+[ext_resource path="res://scenes/shared/visuals/sphere_96.png" type="Texture" id=6]
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=20]
+resource_local_to_scene = true
 radius = 24.0
 height = 16.0
 
@@ -24,6 +26,33 @@ shader_param/x_factor = 2.0
 shader_param/bulge = 0.0
 shader_param/color = Color( 1, 1, 1, 1 )
 shader_param/mix_factor = 0.0
+
+[sub_resource type="Gradient" id=16]
+offsets = PoolRealArray( 0.15415, 0.41502, 0.743083, 1 )
+colors = PoolColorArray( 1, 0, 0.309804, 1, 0.656446, 0.0232059, 0.219386, 1, 0.141176, 0.141176, 0.141176, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=17]
+gradient = SubResource( 16 )
+
+[sub_resource type="Curve" id=18]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.17459, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.549858, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=19]
+curve = SubResource( 18 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+emission_shape = 1
+emission_sphere_radius = 17.84
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 19.74
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.2
+scale_random = 0.07
+scale_curve = SubResource( 19 )
+color_ramp = SubResource( 17 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 0, 0.309804, 1 )
@@ -212,7 +241,7 @@ script = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color( 1, 0, 0.94902, 1 )
 rotation = 1.5708
-shape = SubResource( 4 )
+shape = SubResource( 20 )
 disabled = true
 
 [node name="Trail2D" type="Line2D" parent="."]
@@ -231,8 +260,15 @@ scale = Vector2( 0.3125, 0.3125 )
 z_index = 3
 texture = ExtResource( 2 )
 
+[node name="EnragedParticles" type="Particles2D" parent="Sprite"]
+scale = Vector2( 3.2, 3.2 )
+emitting = false
+amount = 41
+local_coords = false
+process_material = SubResource( 15 )
+texture = ExtResource( 6 )
+
 [node name="SpawnInvicibility" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 autostart = true
 

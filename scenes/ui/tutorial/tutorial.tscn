@@ -1,7 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/ui/fonts/aldo_the_apache/AldotheApache.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/ui/tutorial/scripts/tutorial.gd" type="Script" id=2]
+[ext_resource path="res://scenes/player/visuals/coots_face.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=5]
+size = 200
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -29,10 +36,132 @@ scale = 15.24
 scale_random = 0.46
 scale_curve = SubResource( 4 )
 
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label/TextureRect2:rect_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "wiggle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label/TextureRect:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ 0.0, 10.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label/TextureRect2:rect_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ 0.0, -10.0 ]
+}
+
 [node name="Tutorial" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -274.0
+margin_top = 51.0
+margin_right = 272.0
+margin_bottom = 388.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( 273, 168 )
+custom_fonts/font = SubResource( 5 )
+text = "C**TS
+YOU!"
+align = 1
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="Label"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -37.0
+margin_top = -96.0
+margin_right = 171.0
+margin_bottom = 96.0
+rect_pivot_offset = Vector2( 104, 96 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="Label"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -177.0
+margin_top = -96.0
+margin_right = 31.0
+margin_bottom = 96.0
+rect_pivot_offset = Vector2( 104, 96 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
 
 [node name="Control" type="Control" parent="."]
 anchor_left = 0.5
@@ -197,3 +326,8 @@ lifetime = 0.8
 one_shot = true
 explosiveness = 0.87
 process_material = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "wiggle"
+anims/RESET = SubResource( 7 )
+anims/wiggle = SubResource( 6 )

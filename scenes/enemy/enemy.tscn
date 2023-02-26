@@ -9,8 +9,8 @@
 
 [sub_resource type="CapsuleShape2D" id=20]
 resource_local_to_scene = true
-radius = 24.0
-height = 16.0
+radius = 23.0
+height = 12.0
 
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0506303, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]

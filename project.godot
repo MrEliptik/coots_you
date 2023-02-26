@@ -32,7 +32,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="ludwig_jam_2023"
+config/name="Coots You"
 run/main_scene="res://scenes/game/game.tscn"
 config/icon="res://icon.png"
 
@@ -103,6 +103,12 @@ fire={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":7,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+pause={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777217,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":11,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
 
 [physics]
 
@@ -112,6 +118,5 @@ common/enable_pause_aware_picking=true
 
 quality/filters/anisotropic_filter_level=8
 gles3/shaders/shader_compilation_mode=2
-gles3/shaders/shader_compilation_mode.web=2
 quality/filters/msaa=2
 environment/default_environment="res://default_env.tres"

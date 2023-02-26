@@ -30,6 +30,7 @@ onready var collision_shape: CollisionShape2D = $CollisionShape2D
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var sprite_base_scale: Vector2 = sprite.scale
 onready var collision_base_radius: float = collision_shape.shape.radius
+onready var texture_progress: TextureProgress = $TextureProgress
 
 func _ready() -> void:
 	animation_player.play("appear")
@@ -110,6 +111,10 @@ func set_health(amount: float) -> void:
 	
 	# Scale depending on the health
 	var factor = health/max_health
+	
+	sprite.modulate = lerp(Color.black, Color.white, factor)
+	
+	texture_progress.value = factor * 100.0
 	
 	if health <= 0:
 		explode()

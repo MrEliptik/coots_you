@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
+[ext_resource path="res://scenes/ui/shared/cursor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/ui/fonts/aldo_the_apache/AldotheApache.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scenes/ui/death_screen/scripts/death_screen.gd" type="Script" id=3]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=13]
 code = "shader_type canvas_item;
 
 uniform float projector_power : hint_range(0,1) = 0.5;
@@ -57,7 +58,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+shader = SubResource( 13 )
 shader_param/projector_power = 0.0
 shader_param/vignette_param = 1.0
 
@@ -338,9 +339,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -263.5
-margin_top = -280.0
+margin_top = -380.0
 margin_right = 263.5
-margin_bottom = -176.0
+margin_bottom = -276.0
 custom_constants/separation = 25
 
 [node name="RetryBtn" type="Button" parent="HBoxContainer"]
@@ -373,6 +374,11 @@ anims/appear = SubResource( 9 )
 anims/disappear = SubResource( 11 )
 anims/wiggle = SubResource( 12 )
 
+[node name="Cursor" parent="." instance=ExtResource( 1 )]
+position = Vector2( 432, 834 )
+
+[connection signal="focus_entered" from="HBoxContainer/RetryBtn" to="." method="_on_RetryBtn_focus_entered"]
 [connection signal="pressed" from="HBoxContainer/RetryBtn" to="." method="_on_RetryBtn_pressed"]
+[connection signal="focus_entered" from="HBoxContainer/QuitBtn" to="." method="_on_QuitBtn_focus_entered"]
 [connection signal="pressed" from="HBoxContainer/QuitBtn" to="." method="_on_QuitBtn_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

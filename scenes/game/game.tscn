@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/game/scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/spawner/spawn_manager.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/game/scripts/wave_cleared.gd" type="Script" id=9]
 [ext_resource path="res://scenes/obstacle/obstacle.tscn" type="PackedScene" id=10]
 [ext_resource path="res://addons/godot_sfxr/SfxrStreamPlayer.gd" type="Script" id=11]
+[ext_resource path="res://scenes/ui/pause/pause.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -836,6 +837,8 @@ low_pass_filter/cutoff_sweep = 0.0
 low_pass_filter/resonance = 0.0
 high_pass_filter/cutoff_frequency = 0.0
 high_pass_filter/cutoff_sweep = 0.0
+
+[node name="Pause" parent="UICanvas" instance=ExtResource( 12 )]
 
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="started" from="Player" to="." method="_on_Player_started"]

@@ -124,26 +124,27 @@ func _physics_process(delta: float) -> void:
 	for i in range(get_slide_count()):
 		var collision = get_slide_collision(i)
 		var collider = collision.collider
-		if not collider.is_in_group("Pushable"):
-			# TODO: stop?
-			continue
 		if attacking:
 			$Hit.play()
-			collider.push(push_vec.normalized()*push_force)
 			velocity = -push_vec.normalized()*pushback_force
 			attacking = false
 			
 			if collider.is_in_group("Enemies"):
+				collider.push(push_vec.normalized()*push_force)
 				collider.collision_normal = collision.normal
 				damage(damage_self)
 				collider.damage(damage_direct_enemy)
 				start_hitstop(hitstop_enemy)
 				collider.start_hitstop(hitstop_enemy)
-			else:
+			elif collider.is_in_group("Pushable"):
+				collider.push(push_vec.normalized()*push_force)
 				Globals.camera.shake(0.3, 20, 8)
 				start_hitstop(hitstop_object)
 				collider.start_hitstop(hitstop_object)
 #				animation_player.play("bump")
+			else:
+				Globals.camera.shake(0.3, 20, 8)
+				attacking = false
 			return
 		else:
 			if collider.is_in_group("Enemies"):

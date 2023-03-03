@@ -15,8 +15,10 @@ func _process(delta: float) -> void:
 		get_tree().paused = !get_tree().paused
 		
 		if get_tree().paused:
+			EventBus.emit_paused(true)
 			appear()
 		else:
+			EventBus.emit_paused(false)
 			disappear()
 			
 func appear() -> void:
@@ -60,3 +62,8 @@ func _on_QuitBtn_focus_entered() -> void:
 	$Cursor.use_gamepad = true
 	$Cursor.global_position = quit_btn.rect_global_position + Vector2(quit_btn.rect_size.x/2.0, quit_btn.rect_size.y)
 
+func _on_MusicSlider_value_changed(value: float) -> void:
+	var db = linear2db(value/100.0)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), db)
+	$HBoxContainer2/Label.text = str(int(value))
+	

@@ -7,7 +7,7 @@ var started: bool = false
 var current_wave: int = 1
 var enemies_per_wave: int = 2
 #var enemies_per_wave: int = 5
-var objects_per_wave: int = 2
+var objects_per_wave: int = 3
 var objects_in_game: int = 0
 
 var tween: SceneTreeTween
